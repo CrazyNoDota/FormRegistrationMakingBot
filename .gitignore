@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Sensitive
+memory/VPS_SERVER.md
+vps_info.txt
+.env
+
+# Playwright / browser cache
+playwright-browsers/

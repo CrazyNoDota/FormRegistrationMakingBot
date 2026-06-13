@@ -1,0 +1,15 @@
+services:
+  formbot:
+    build: .
+    container_name: formbot
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - formbot_data:/data
+    # No ports — Telegram long-polling, no inbound connections needed
+    mem_limit: 850m
+    memswap_limit: 1700m
+
+volumes:
+  formbot_data:
+    driver: local

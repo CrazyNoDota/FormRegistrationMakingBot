@@ -1,0 +1,7 @@
+.git
+.env
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+vps_info.txt
