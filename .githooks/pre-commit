@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Block commits that contain secrets. Powered by gitleaks.
+set -euo pipefail
+
+GITLEAKS="$(command -v gitleaks || echo "$HOME/.local/bin/gitleaks")"
+
+if [ ! -x "$GITLEAKS" ]; then
+  echo "⚠️  gitleaks not found — skipping secret scan (install it to re-enable)."
+  exit 0
+fi
+
+# Scan only what is staged for this commit.
+if ! "$GITLEAKS" protect --staged --redact --no-banner; then
+  echo
+  echo "❌ Commit blocked: a secret was detected in your staged changes."
+  echo "   Remove it (use a placeholder / move it to .env) and commit again."
+  echo "   False positive? Add a '# gitleaks:allow' comment on that line,"
+  echo "   or bypass once with: git commit --no-verify"
+  exit 1
+fi
